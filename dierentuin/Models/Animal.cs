@@ -8,6 +8,7 @@ namespace dierentuin.Models
         public string category { get; set; }
         public enum size;
         public enum dietaryClass;
+        public int categoryId { get; set; }
         public string prey { get; set; }
         public string enclosure { get; set; }
         public double spaceRequirement { get; set; }

@@ -7,8 +7,12 @@
       "RelativeMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|solutionrelative:dierentuin\\models\\animal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|c:\\users\\rick\\coding\\windesheim\\sl2b\\sl2b-dierentuin\\dierentuin\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|solutionrelative:dierentuin\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|c:\\users\\rick\\coding\\windesheim\\sl2b\\sl2b-dierentuin\\dierentuin\\models\\enclosure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|solutionrelative:dierentuin\\models\\enclosure.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|c:\\users\\rick\\coding\\windesheim\\sl2b\\sl2b-dierentuin\\dierentuin\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A86982CD-F3D9-46E5-AB09-A6DCAECA1F1F}|dierentuin\\dierentuin.csproj|solutionrelative:dierentuin\\models\\category.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -26,15 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ErrorViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\ErrorViewModel.cs",
-              "RelativeDocumentMoniker": "dierentuin\\Models\\ErrorViewModel.cs",
-              "ToolTip": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\ErrorViewModel.cs",
-              "RelativeToolTip": "dierentuin\\Models\\ErrorViewModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "Category.cs",
+              "DocumentMoniker": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\Category.cs",
+              "RelativeDocumentMoniker": "dierentuin\\Models\\Category.cs",
+              "ToolTip": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\Category.cs",
+              "RelativeToolTip": "dierentuin\\Models\\Category.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-25T15:18:50.896Z",
+              "WhenOpened": "2024-06-25T19:33:57.101Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Enclosure.cs",
+              "DocumentMoniker": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\Enclosure.cs",
+              "RelativeDocumentMoniker": "dierentuin\\Models\\Enclosure.cs",
+              "ToolTip": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\Enclosure.cs",
+              "RelativeToolTip": "dierentuin\\Models\\Enclosure.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-25T19:33:49.137Z",
               "EditorCaption": ""
             },
             {
@@ -45,7 +62,7 @@
               "RelativeDocumentMoniker": "dierentuin\\Models\\Animal.cs",
               "ToolTip": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\Models\\Animal.cs",
               "RelativeToolTip": "dierentuin\\Models\\Animal.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAhAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAoAAAArAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-25T15:11:17.293Z",
               "EditorCaption": ""
