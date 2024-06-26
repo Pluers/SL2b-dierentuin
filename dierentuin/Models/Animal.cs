@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using dierentuin.Enums;
 
 namespace dierentuin.Models
