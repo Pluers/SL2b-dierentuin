@@ -406,4 +406,4 @@ FodyWeavers.xsd
 *.db-wal
 *.cache
 bin/
-obj/Debug
+dierentuin/obj/Debug
