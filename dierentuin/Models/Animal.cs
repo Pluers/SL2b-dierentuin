@@ -27,9 +27,9 @@ namespace dierentuin.Models
         Microscopic,
         VerySmall,
         Small,
-        Medium,
-        Large,
-        VeryLarge
+        Medium = 5,
+        Large = 10,
+        VeryLarge = 20
     }
     public enum AnimalDietaryClass
     {
