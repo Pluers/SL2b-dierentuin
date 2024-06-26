@@ -55,10 +55,8 @@ namespace dierentuin.Controllers
             ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
             ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
             ViewBag.Prey = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList());
-            ViewBag.Categories = new SelectList(_context.Category.Select(a => a.Name).Distinct().ToList());
+            ViewBag.Categories = new SelectList(_context.Category.ToList(), "Id", "Name");
 
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "id", "id");
-            ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Id");
             return View();
         }
 
@@ -71,13 +69,23 @@ namespace dierentuin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var enclosureIds = _context.Enclosure.Select(e => e.Id).ToList();
+
+                if (enclosureIds.Any())
+                {
+                    var random = new Random();
+                    // Select a random EnclosureId from the list of existing IDs
+                    var randomEnclosureId = enclosureIds[random.Next(enclosureIds.Count)];
+
+                    // Assign the random EnclosureId to the animal
+                    animal.EnclosureId = randomEnclosureId;
+                }
+
                 _context.Add(animal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "id", "id", animal.CategoryId);
-            ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Id", animal.EnclosureId);
             return View(animal);
         }
 
