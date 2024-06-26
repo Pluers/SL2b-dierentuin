@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using dierentuin.Data;
 using dierentuin.Models;
+using dierentuin.Enums;
 
 namespace dierentuin.Controllers
 {
@@ -67,6 +68,12 @@ namespace dierentuin.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+            ViewBag.Size = new SelectList(Enum.GetValues(typeof(AnimalSize)));
+            ViewBag.DietaryClass = new SelectList(Enum.GetValues(typeof(AnimalDietaryClass)));
+            ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
+            ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
+
             ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "id", "id", animal.CategoryId);
             ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Id", animal.EnclosureId);
             return View(animal);
