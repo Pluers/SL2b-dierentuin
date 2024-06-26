@@ -23,6 +23,11 @@
                 <span asp-validation-for="Species" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="CategoryId" class="control-label"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.Categories"></select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="Size" class="control-label"></label>
                 <select asp-for="Size" class="form-control" asp-items="ViewBag.SizeTypes"></select>
                 <span asp-validation-for="Size" class="text-danger"></span>
@@ -34,12 +39,12 @@
             </div>
             <div class="form-group">
                 <label asp-for="ActivityPattern" class="control-label"></label>
-                <select asp-for="ActivityPattern" class="form-control"asp-items="ViewBag.ActivityPattern"></select>
+                <select asp-for="ActivityPattern" class="form-control" asp-items="ViewBag.ActivityPattern"></select>
                 <span asp-validation-for="ActivityPattern" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Prey" class="control-label"></label>
-                <input asp-for="Prey" class="form-control" />
+                <select asp-for="Prey" class="form-control" asp-items="ViewBag.Prey"></select>
                 <span asp-validation-for="Prey" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="SecurityRequirement" class="control-label"></label>
-                <select asp-for="SecurityRequirement" class="form-control"asp-items="ViewBag.SecurityLevel"></select>
+                <select asp-for="SecurityRequirement" class="form-control" asp-items="ViewBag.SecurityLevel"></select>
                 <span asp-validation-for="SecurityRequirement" class="text-danger"></span>
             </div>
             <div class="form-group">
