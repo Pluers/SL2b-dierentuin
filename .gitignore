@@ -405,5 +405,5 @@ FodyWeavers.xsd
 *.db-shm
 *.db-wal
 *.cache
-bin/*
-obj/*
+dierentuin/bin/*
+dierentuin/obj/Debug/*
