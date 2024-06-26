@@ -33,7 +33,7 @@ namespace dierentuin.Data
                     .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityClassification>())
                     .RuleFor(e => e.EnclosureSize, f => f.Random.Number(20, 200));
 
-                var enclosures = enclosureFaker.Generate(4);
+                var enclosures = enclosureFaker.Generate(3);
                 _context.Enclosure.AddRange(enclosures);
 
                 var animalFaker = new Faker<Animal>()
@@ -42,6 +42,8 @@ namespace dierentuin.Data
                     .RuleFor(a => a.Size, f => f.PickRandom<AnimalSize>())
                     .RuleFor(a => a.DietaryClass, f => f.PickRandom<AnimalDietaryClass>())
                     .RuleFor(a => a.ActivityPattern, f => f.PickRandom<AnimalActivityPattern>())
+                    .RuleFor(a => a.Category, f => f.PickRandom(categories))
+                    .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures))
                     .RuleFor(a => a.Prey, f => f.Lorem.Word())
                     .RuleFor(a => a.SpaceRequirement, f => f.Random.Number(1, 20))
                     .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityClassification>())

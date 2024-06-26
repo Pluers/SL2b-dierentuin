@@ -10,11 +10,16 @@ namespace dierentuin
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddDbContext<dierentuinContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("dierentuinContext") ?? throw new InvalidOperationException("Connection string 'dierentuinContext' not found.")));
+            builder.Services.AddScoped<dierentuinSeeder>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
+
+            var serviceProvider = app.Services.CreateScope().ServiceProvider;
+            var seeder = serviceProvider.GetRequiredService<dierentuinSeeder>();
+            seeder.DataSeeder();
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
