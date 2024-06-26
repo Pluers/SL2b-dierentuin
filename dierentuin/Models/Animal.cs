@@ -9,9 +9,9 @@ namespace dierentuin.Models
         public string Name { get; set; }
         public string Species { get; set; }
         public Category? Category { get; set; }
-        public Size Size { get; set; }
-        public DietaryClass DietaryClass { get; set; }
-        public ActivityPattern ActivityPattern { get; set; }
+        public AnimalSize Size { get; set; }
+        public AnimalDietaryClass DietaryClass { get; set; }
+        public AnimalActivityPattern ActivityPattern { get; set; }
         public int CategoryId { get; set; }
         public int EnclosureId { get; set; }
         public string? Prey { get; set; }
@@ -23,7 +23,7 @@ namespace dierentuin.Models
         public SecurityClassification SecurityRequirement { get; set; }
     }
 
-    public enum Size
+    public enum AnimalSize
     {
         Microscopic,
         VerySmall,
@@ -32,7 +32,7 @@ namespace dierentuin.Models
         Large,
         VeryLarge
     }
-    public enum DietaryClass
+    public enum AnimalDietaryClass
     {
         Carnivore,
         Herbivore,
@@ -40,7 +40,7 @@ namespace dierentuin.Models
         Insectivore,
         Piscivore
     }
-    public enum ActivityPattern
+    public enum AnimalActivityPattern
     {
         Diurnal,
         Nocturnal,

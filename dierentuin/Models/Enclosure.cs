@@ -7,19 +7,19 @@ namespace dierentuin.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public Collection<Animal>? Animals { get; set; }
-        public ClimateType Climate;
+        public EnclosureClimateType Climate;
 
-        public HabitatEnvironment HabitatType;
+        public EnclosureHabitatEnvironment HabitatType;
         public SecurityClassification SecurityLevel;
 
         /// <summary>
         /// Size is in square meters.
         /// </summary>
-        public double Size { get; set; }
+        public double EnclosureSize { get; set; }
     }
 
     [Flags]
-    public enum HabitatEnvironment
+    public enum EnclosureHabitatEnvironment
     {
         Forest,
         Savannah,

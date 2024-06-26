@@ -1,6 +1,6 @@
 namespace dierentuin.Enums
 {
-    public enum ClimateType
+    public enum EnclosureClimateType
     {
         Tropical,
         Subtropical,
