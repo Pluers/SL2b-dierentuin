@@ -252,3 +252,4 @@ C:\Users\Rick\Coding\Windesheim\SL2b\SL2b-dierentuin\dierentuin\obj\Debug\net8.0
 C:\Users\Rick\Coding\Windesheim\SL2b\SL2b-dierentuin\dierentuin\obj\Debug\net8.0\dierentuin.pdb
 C:\Users\Rick\Coding\Windesheim\SL2b\SL2b-dierentuin\dierentuin\obj\Debug\net8.0\dierentuin.genruntimeconfig.cache
 C:\Users\Rick\Coding\Windesheim\SL2b\SL2b-dierentuin\dierentuin\obj\Debug\net8.0\ref\dierentuin.dll
+C:\Users\Rick\Coding\Windesheim\SL2b\SL2b-dierentuin\dierentuin\obj\Debug\net8.0\dierentuin.sourcelink.json
