@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using dierentuin.Enums;
+
 namespace dierentuin.Models
 {
     public class Enclosure

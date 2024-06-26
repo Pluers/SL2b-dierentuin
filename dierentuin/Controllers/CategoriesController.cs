@@ -34,7 +34,7 @@ namespace dierentuin.Controllers
             }
 
             var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace dierentuin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,name")] Category category)
+        public async Task<IActionResult> Create([Bind("Id,Name")] Category category)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +86,9 @@ namespace dierentuin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,name")] Category category)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Category category)
         {
-            if (id != category.id)
+            if (id != category.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace dierentuin.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CategoryExists(category.id))
+                    if (!CategoryExists(category.Id))
                     {
                         return NotFound();
                     }
@@ -125,7 +125,7 @@ namespace dierentuin.Controllers
             }
 
             var category = await _context.Category
-                .FirstOrDefaultAsync(m => m.id == id);
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
@@ -151,7 +151,7 @@ namespace dierentuin.Controllers
 
         private bool CategoryExists(int id)
         {
-            return _context.Category.Any(e => e.id == id);
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }

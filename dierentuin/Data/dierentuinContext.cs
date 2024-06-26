@@ -9,13 +9,11 @@ namespace dierentuin.Data
 {
     public class dierentuinContext : DbContext
     {
-        public dierentuinContext (DbContextOptions<dierentuinContext> options)
-            : base(options)
-        {
-        }
+        public dierentuinContext(DbContextOptions<dierentuinContext> options) : base(options) { }
 
-        public DbSet<dierentuin.Models.Animal> Animal { get; set; } = default!;
-        public DbSet<dierentuin.Models.Category> Category { get; set; } = default!;
-        public DbSet<dierentuin.Models.Enclosure> Enclosure { get; set; } = default!;
+        // List of models
+        public DbSet<Animal> Animal { get; set; } = default!;
+        public DbSet<Category> Category { get; set; } = default!;
+        public DbSet<Enclosure> Enclosure { get; set; } = default!;
     }
 }

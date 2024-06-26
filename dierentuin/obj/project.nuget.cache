@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "NgHta3y4zClwN1DcC/YIxBAOqzcZhm77FeNgl/D6YrT3dHT8YGd1+Ess9RspEip0DD4Y6QvBmBZtU5XyfqT85g==",
+  "dgSpecHash": "Yi7pox85WifDI6rPGSJJ0dFl6r0Dtd/JwzIUD1r7ZpP5YAOGuCdcEM/ipFCRGE4eLWnlvIIIC+hje0uQWCAquQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\Rick\\Coding\\Windesheim\\SL2b\\SL2b-dierentuin\\dierentuin\\dierentuin.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Rick\\.nuget\\packages\\bogus\\35.5.1\\bogus.35.5.1.nupkg.sha512",
     "C:\\Users\\Rick\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\Rick\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Rick\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",
