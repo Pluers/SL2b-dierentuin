@@ -25,7 +25,25 @@ namespace dierentuin.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Animal>>> GetAnimal()
         {
-            return await _context.Animal.ToListAsync();
+            // This is to exclude prey and not create any loops because a prey can be an animal so it will create a loop
+            var animals = await _context.Animal.ToListAsync();
+
+            var animalDTOs = animals.Select(a => new AnimalDTO
+            {
+                Id = a.Id,
+                Name = a.Name,
+                Species = a.Species,
+                Size = a.Size,
+                DietaryClass = a.DietaryClass,
+                ActivityPattern = a.ActivityPattern,
+                CategoryId = a.CategoryId,
+                EnclosureId = a.EnclosureId,
+                PreyId = a.PreyId,
+                SpaceRequirement = a.SpaceRequirement,
+                SecurityRequirement = a.SecurityRequirement
+            }).ToList();
+
+            return Ok(animalDTOs);
         }
 
         // GET: api/Animals/5
