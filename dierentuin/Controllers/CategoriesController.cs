@@ -139,23 +139,44 @@ namespace dierentuin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.Include(c => c.Animals).FirstOrDefaultAsync(c => c.Id == id);
-            if (category != null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                foreach (var relatedEntity in category.Animals)
+                try
                 {
-                    relatedEntity.CategoryId = null;
+                    var category = await _context.Category.Include(c => c.Animals).FirstOrDefaultAsync(c => c.Id == id);
+                    if (category != null)
+                    {
+                        foreach (var relatedEntity in category.Animals)
+                        {
+                            relatedEntity.CategoryId = null;
+                        }
+                
+                        // Remove the category
+                        _context.Category.Remove(category);
+                        
+                        // Save all changes in a single call
+                        await _context.SaveChangesAsync();
+                        
+                        // Commit transaction
+                        await transaction.CommitAsync();
+                    }
+                
+                    return RedirectToAction(nameof(Index));
                 }
-        
-                // Save the changes to nullify the relationships
-                await _context.SaveChangesAsync();
-        
-                // Now, it's safe to remove the category
-                _context.Category.Remove(category);
-                await _context.SaveChangesAsync();
+                catch (Exception ex)
+                {
+                    // Log the exception, handle it, or rollback transaction
+                    await transaction.RollbackAsync();
+                    return RedirectToAction(nameof(Index));
+                    // Consider returning an error view or a user-friendly error message
+                }
             }
+        }
         
-            return RedirectToAction(nameof(Index));
+
+        private bool CategoryExists(int id)
+        {
+            return _context.Category.Any(e => e.Id == id);
         }
     }
 }
