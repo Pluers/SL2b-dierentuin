@@ -7,10 +7,9 @@ namespace dierentuin.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Collection<Animal>? Animals { get; set; }
-        public EnclosureClimateType Climate;
-        public EnclosureHabitatEnvironment HabitatType;
-        public SecurityClassification SecurityLevel;
+        public EnclosureClimateType Climate { get; set; }
+        public EnclosureHabitatEnvironment HabitatType { get; set; }
+        public SecurityClassification SecurityLevel { get; set; }
 
         /// <summary>
         /// Size is in square meters.

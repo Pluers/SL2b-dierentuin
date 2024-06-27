@@ -25,6 +25,7 @@ namespace dierentuin.Data
 
                 var categories = categoryFaker.Generate(5);
                 _context.Category.AddRange(categories);
+                _context.SaveChanges();
 
                 var enclosureFaker = new Faker<Enclosure>()
                     .RuleFor(e => e.Name, f => $"{f.PickRandom(categories).Name} Enclosure")
@@ -35,6 +36,7 @@ namespace dierentuin.Data
 
                 var enclosures = enclosureFaker.Generate(3);
                 _context.Enclosure.AddRange(enclosures);
+                _context.SaveChanges();
 
                 var animalFaker = new Faker<Animal>()
                     .RuleFor(a => a.Name, f => f.Name.FirstName())
