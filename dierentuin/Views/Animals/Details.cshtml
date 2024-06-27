@@ -53,10 +53,10 @@
             @Html.DisplayFor(model => model.Prey.Name)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Enclosure)
+            @Html.DisplayNameFor(model => model.Enclosure.Name)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Enclosure.Id)
+            @Html.DisplayFor(model => model.Enclosure.Name)
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SpaceRequirement)
@@ -73,6 +73,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Edit</a>
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
