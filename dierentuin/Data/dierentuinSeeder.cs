@@ -20,21 +20,28 @@ namespace dierentuin.Data
 
             if (!_context.Animal.Any())
             {
-                var categoryFaker = new Faker<Category>()
-                    .RuleFor(c => c.Name, f => f.PickRandom(new[] { "Mammals", "Birds", "Reptiles", "Fish", "Amphibians" }));
+                var categoryNames = new[] { "Mammals", "Birds", "Reptiles", "Fish", "Amphibians", "Insects", "Arachnids" };
+                var categories = categoryNames.Select(name => new Category { Name = name }).ToList();
+                List<Category> usedCategories = new List<Category>();
 
-                var categories = categoryFaker.Generate(5);
                 _context.Category.AddRange(categories);
                 _context.SaveChanges();
 
                 var enclosureFaker = new Faker<Enclosure>()
-                    .RuleFor(e => e.Name, f => $"{f.PickRandom(categories).Name} Enclosure")
+                    .RuleFor(e => e.Name, f => {
+                        Category category;
+                        do {
+                            category = f.PickRandom(categories);
+                        } while (usedCategories.Contains(category));
+                        usedCategories.Add(category);
+                        return $"{category.Name} Enclosure";
+                    })
                     .RuleFor(e => e.Climate, f => f.PickRandom<EnclosureClimateType>())
                     .RuleFor(e => e.HabitatType, f => f.PickRandom<EnclosureHabitatEnvironment>())
                     .RuleFor(e => e.SecurityLevel, f => f.PickRandom<SecurityClassification>())
                     .RuleFor(e => e.EnclosureSize, f => f.Random.Number(20, 200));
 
-                var enclosures = enclosureFaker.Generate(3);
+                var enclosures = enclosureFaker.Generate(5);
                 _context.Enclosure.AddRange(enclosures);
                 _context.SaveChanges();
 
