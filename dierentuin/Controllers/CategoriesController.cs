@@ -34,6 +34,7 @@ namespace dierentuin.Controllers
             }
 
             var category = await _context.Category
+                .Include(a => a.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
