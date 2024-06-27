@@ -150,7 +150,7 @@ namespace dierentuin.Controllers
             if (enclosure != null)
             {
                 // Fetch all animals in the enclosure
-                var animalsInEnclosure = await _context.Animals
+                var animalsInEnclosure = await _context.Animal
                     .Where(a => a.EnclosureId == id)
                     .ToListAsync();
         

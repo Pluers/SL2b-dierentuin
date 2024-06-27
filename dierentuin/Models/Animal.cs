@@ -11,8 +11,8 @@ namespace dierentuin.Models
         public AnimalSize Size { get; set; }
         public AnimalDietaryClass DietaryClass { get; set; }
         public AnimalActivityPattern ActivityPattern { get; set; }
-        public int CategoryId { get; set; }
-        public int EnclosureId { get; set; }
+        public int? CategoryId { get; set; }
+        public int? EnclosureId { get; set; }
         public string? Prey { get; set; }
         public Enclosure? Enclosure { get; set; }
         /// <summary>
