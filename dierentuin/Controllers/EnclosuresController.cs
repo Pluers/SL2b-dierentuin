@@ -145,13 +145,29 @@ namespace dierentuin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Fetch the enclosure to be deleted
             var enclosure = await _context.Enclosure.FindAsync(id);
             if (enclosure != null)
             {
+                // Fetch all animals in the enclosure
+                var animalsInEnclosure = await _context.Animals
+                    .Where(a => a.EnclosureId == id)
+                    .ToListAsync();
+        
+                // Set the EnclosureId of each animal to null
+                foreach (var animal in animalsInEnclosure)
+                {
+                    animal.EnclosureId = null;
+                }
+        
+                // Save the changes to the animals
+                await _context.SaveChangesAsync();
+        
+                // Remove the enclosure
                 _context.Enclosure.Remove(enclosure);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
+        
             return RedirectToAction(nameof(Index));
         }
 
