@@ -56,7 +56,7 @@
                     @Html.DisplayFor(modelItem => item.Species)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Category.Id)
+                    @Html.DisplayFor(modelItem => item.Category.Name)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Size)
@@ -71,10 +71,10 @@
                     @Html.DisplayFor(modelItem => item.Prey)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Enclosure.Id)
+                    @Html.DisplayFor(modelItem => item.Enclosure.Name)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.SpaceRequirement)
+                    @Html.DisplayFor(modelItem => item.SpaceRequirement) m<sup>2</sup>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.SecurityRequirement)

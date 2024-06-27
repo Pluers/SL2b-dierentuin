@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using dierentuin.Data;
 using dierentuin.Models;
+using dierentuin.Enums;
 
 namespace dierentuin.Controllers
 {
@@ -49,8 +50,13 @@ namespace dierentuin.Controllers
         // GET: Animals/Create
         public IActionResult Create()
         {
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "id", "id");
-            ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Id");
+            ViewBag.SizeTypes = new SelectList(Enum.GetValues(typeof(AnimalSize)));
+            ViewBag.DietaryClass = new SelectList(Enum.GetValues(typeof(AnimalDietaryClass)));
+            ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
+            ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
+            ViewBag.Prey = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList());
+            ViewBag.Categories = new SelectList(_context.Category.ToList(), "Id", "Name");
+
             return View();
         }
 
@@ -63,12 +69,23 @@ namespace dierentuin.Controllers
         {
             if (ModelState.IsValid)
             {
+                var enclosureIds = _context.Enclosure.Select(e => e.Id).ToList();
+
+                if (enclosureIds.Any())
+                {
+                    var random = new Random();
+                    // Select a random EnclosureId from the list of existing IDs
+                    var randomEnclosureId = enclosureIds[random.Next(enclosureIds.Count)];
+
+                    // Assign the random EnclosureId to the animal
+                    animal.EnclosureId = randomEnclosureId;
+                }
+
                 _context.Add(animal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "id", "id", animal.CategoryId);
-            ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Id", animal.EnclosureId);
+
             return View(animal);
         }
 

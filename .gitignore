@@ -402,8 +402,10 @@ FodyWeavers.xsd
 *.log
 *.vscode
 *.bin
+*.db
 *.db-shm
 *.db-wal
 *.cache
-dierentuin/bin/*
-dierentuin/obj/Debug/*
+
+**/bin/
+**/obj/

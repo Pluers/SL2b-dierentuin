@@ -19,7 +19,7 @@ namespace dierentuin.Models
         /// SpaceRequirement is in square meters.
         /// </summary>
         public double SpaceRequirement { get; set; }
-        public SecurityClassification SecurityRequirement { get; set; }
+        public SecurityClassification? SecurityRequirement { get; set; }
     }
 
     public enum AnimalSize

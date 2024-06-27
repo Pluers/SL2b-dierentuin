@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using dierentuin.Data;
 using dierentuin.Models;
+using dierentuin.Enums;
 
 namespace dierentuin.Controllers
 {
@@ -46,6 +47,10 @@ namespace dierentuin.Controllers
         // GET: Enclosures/Create
         public IActionResult Create()
         {
+            ViewBag.Climate = new SelectList(Enum.GetValues(typeof(EnclosureClimateType)));
+            ViewBag.HabitatType = new SelectList(Enum.GetValues(typeof(EnclosureHabitatEnvironment)));
+            ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
+
             return View();
         }
 
@@ -58,6 +63,7 @@ namespace dierentuin.Controllers
         {
             if (ModelState.IsValid)
             {
+                enclosure.Animals = null;
                 _context.Add(enclosure);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
