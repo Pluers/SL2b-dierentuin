@@ -23,15 +23,6 @@ namespace dierentuin.Models
         public SecurityClassification? SecurityRequirement { get; set; }
     }
 
-    public enum AnimalSize
-    {
-        Microscopic,
-        VerySmall,
-        Small,
-        Medium = 5,
-        Large = 10,
-        VeryLarge = 20
-    }
     public enum AnimalDietaryClass
     {
         Carnivore,

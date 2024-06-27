@@ -6,6 +6,6 @@ namespace dierentuin.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public Collection<Animal>? Animals { get; set; }
+        public ICollection<Animal>? Animals { get; set; }
     }
 }

@@ -25,23 +25,47 @@ namespace dierentuin.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Enclosure>>> GetEnclosure()
         {
-            return await _context.Enclosure.ToListAsync();
+            var enclosures = await _context.Enclosure
+                .Select(e => new
+                {
+                    e.Id,
+                    e.Name,
+                    e.Climate,
+                    e.HabitatType,
+                    e.SecurityLevel,
+                    e.EnclosureSize,
+                    Animals = e.Animals.Select(a => new ForeignAnimalDTO { Id = a.Id, Name = a.Name, Size = a.Size }).ToList()
+                })
+                .ToListAsync();
+        
+            return Ok(enclosures);
         }
 
         // GET: api/Enclosures/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Enclosure>> GetEnclosure(int id)
         {
-            var enclosure = await _context.Enclosure.FindAsync(id);
+            var enclosure = await _context.Enclosure
+                .Where(m => m.Id == id)
+                .Select(e => new
+                {
+                    e.Id,
+                    e.Name,
+                    e.Climate,
+                    e.HabitatType,
+                    e.SecurityLevel,
+                    e.EnclosureSize,
+                    Animals = e.Animals.Select(a => new ForeignAnimalDTO { Id = a.Id, Name = a.Name, Size = a.Size }).ToList()
+                })
+                .FirstOrDefaultAsync();
 
             if (enclosure == null)
             {
                 return NotFound();
             }
 
-            return enclosure;
+            return Ok(enclosure);
         }
-
         // PUT: api/Enclosures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
@@ -88,7 +112,9 @@ namespace dierentuin.Controllers.API
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEnclosure(int id)
         {
-            var enclosure = await _context.Enclosure.FindAsync(id);
+            var enclosure = await _context.Enclosure
+                .Include(a => a.Animals)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (enclosure == null)
             {
                 return NotFound();

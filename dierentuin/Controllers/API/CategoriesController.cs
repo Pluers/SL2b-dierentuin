@@ -23,23 +23,40 @@ namespace dierentuin.Controllers.API
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
+        public async Task<ActionResult<IEnumerable<object>>> GetCategory()
         {
-            return await _context.Category.ToListAsync();
+            var categories = await _context.Category
+                .Select(c => new 
+                {
+                    c.Id,
+                    c.Name,
+                    Animals = c.Animals.Select(a => new ForeignAnimalDTO { Id = a.Id, Name = a.Name, Size = a.Size }).ToList()
+                })
+                .ToListAsync();
+        
+            return Ok(categories);
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<object>> GetCategory(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-
+            var category = await _context.Category
+                .Where(c => c.Id == id)
+                .Select(c => new 
+                {
+                    c.Id,
+                    c.Name,
+                    Animals = c.Animals.Select(a => new ForeignAnimalDTO { Id = a.Id, Name = a.Name, Size = a.Size }).ToList()
+                })
+                .FirstOrDefaultAsync();
+        
             if (category == null)
             {
                 return NotFound();
             }
-
-            return category;
+        
+            return Ok(category);
         }
 
         // PUT: api/Categories/5
@@ -88,7 +105,9 @@ namespace dierentuin.Controllers.API
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
         {
-            var category = await _context.Category.FindAsync(id);
+            var category = await _context.Category
+                .Include(a => a.Animals)
+                .FirstOrDefaultAsync(m => m.Id == id);
             if (category == null)
             {
                 return NotFound();
