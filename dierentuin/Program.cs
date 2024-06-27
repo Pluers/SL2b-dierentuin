@@ -12,6 +12,11 @@ namespace dierentuin
                 options.UseSqlite(builder.Configuration.GetConnectionString("dierentuinContext") ?? throw new InvalidOperationException("Connection string 'dierentuinContext' not found.")));
             builder.Services.AddScoped<dierentuinSeeder>();
 
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+            });
+
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 

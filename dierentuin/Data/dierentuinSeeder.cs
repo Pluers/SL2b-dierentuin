@@ -49,7 +49,7 @@ namespace dierentuin.Data
                     .RuleFor(a => a.SpaceRequirement, f => f.Random.Number(1, 20))
                     .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityClassification>())
                     .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures));
-                var animals = animalFaker.Generate(10);
+                var animals = animalFaker.Generate(20);
                 var random = new Random(); 
 
                 _context.Animal.AddRange(animals);
