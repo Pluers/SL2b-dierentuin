@@ -133,6 +133,7 @@ namespace dierentuin.Controllers
             }
 
             var enclosure = await _context.Enclosure
+                .Include(a => a.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (enclosure == null)
             {
