@@ -12,47 +12,47 @@ namespace dierentuin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CategoriesAPIController : ControllerBase
+    public class EnclosuresController : ControllerBase
     {
         private readonly dierentuinContext _context;
 
-        public CategoriesAPIController(dierentuinContext context)
+        public EnclosuresController(dierentuinContext context)
         {
             _context = context;
         }
 
-        // GET: api/CategoriesAPI
+        // GET: api/Enclosures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategory()
+        public async Task<ActionResult<IEnumerable<Enclosure>>> GetEnclosure()
         {
-            return await _context.Category.ToListAsync();
+            return await _context.Enclosure.ToListAsync();
         }
 
-        // GET: api/CategoriesAPI/5
+        // GET: api/Enclosures/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Category>> GetCategory(int id)
+        public async Task<ActionResult<Enclosure>> GetEnclosure(int id)
         {
-            var category = await _context.Category.FindAsync(id);
+            var enclosure = await _context.Enclosure.FindAsync(id);
 
-            if (category == null)
+            if (enclosure == null)
             {
                 return NotFound();
             }
 
-            return category;
+            return enclosure;
         }
 
-        // PUT: api/CategoriesAPI/5
+        // PUT: api/Enclosures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategory(int id, Category category)
+        public async Task<IActionResult> PutEnclosure(int id, Enclosure enclosure)
         {
-            if (id != category.Id)
+            if (id != enclosure.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(category).State = EntityState.Modified;
+            _context.Entry(enclosure).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace dierentuin.Controllers.API
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!CategoryExists(id))
+                if (!EnclosureExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace dierentuin.Controllers.API
             return NoContent();
         }
 
-        // POST: api/CategoriesAPI
+        // POST: api/Enclosures
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Category>> PostCategory(Category category)
+        public async Task<ActionResult<Enclosure>> PostEnclosure(Enclosure enclosure)
         {
-            _context.Category.Add(category);
+            _context.Enclosure.Add(enclosure);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetCategory", new { id = category.Id }, category);
+            return CreatedAtAction("GetEnclosure", new { id = enclosure.Id }, enclosure);
         }
 
-        // DELETE: api/CategoriesAPI/5
+        // DELETE: api/Enclosures/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        public async Task<IActionResult> DeleteEnclosure(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            if (category == null)
+            var enclosure = await _context.Enclosure.FindAsync(id);
+            if (enclosure == null)
             {
                 return NotFound();
             }
 
-            _context.Category.Remove(category);
+            _context.Enclosure.Remove(enclosure);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool CategoryExists(int id)
+        private bool EnclosureExists(int id)
         {
-            return _context.Category.Any(e => e.Id == id);
+            return _context.Enclosure.Any(e => e.Id == id);
         }
     }
 }

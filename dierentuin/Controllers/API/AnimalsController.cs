@@ -12,23 +12,23 @@ namespace dierentuin.Controllers.API
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AnimalsAPIController : ControllerBase
+    public class AnimalsController : ControllerBase
     {
         private readonly dierentuinContext _context;
 
-        public AnimalsAPIController(dierentuinContext context)
+        public AnimalsController(dierentuinContext context)
         {
             _context = context;
         }
 
-        // GET: api/AnimalsAPI
+        // GET: api/Animals
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Animal>>> GetAnimal()
         {
             return await _context.Animal.ToListAsync();
         }
 
-        // GET: api/AnimalsAPI/5
+        // GET: api/Animals/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Animal>> GetAnimal(int id)
         {
@@ -42,7 +42,7 @@ namespace dierentuin.Controllers.API
             return animal;
         }
 
-        // PUT: api/AnimalsAPI/5
+        // PUT: api/Animals/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAnimal(int id, Animal animal)
@@ -73,7 +73,7 @@ namespace dierentuin.Controllers.API
             return NoContent();
         }
 
-        // POST: api/AnimalsAPI
+        // POST: api/Animals
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Animal>> PostAnimal(Animal animal)
@@ -84,7 +84,7 @@ namespace dierentuin.Controllers.API
             return CreatedAtAction("GetAnimal", new { id = animal.Id }, animal);
         }
 
-        // DELETE: api/AnimalsAPI/5
+        // DELETE: api/Animals/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAnimal(int id)
         {
