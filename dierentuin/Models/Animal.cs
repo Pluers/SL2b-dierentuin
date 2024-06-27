@@ -13,7 +13,8 @@ namespace dierentuin.Models
         public AnimalActivityPattern ActivityPattern { get; set; }
         public int? CategoryId { get; set; }
         public int? EnclosureId { get; set; }
-        public string? Prey { get; set; }
+        public int? PreyId { get; set; }
+        public virtual Animal? Prey { get; set; }
         public Enclosure? Enclosure { get; set; }
         /// <summary>
         /// SpaceRequirement is in square meters.

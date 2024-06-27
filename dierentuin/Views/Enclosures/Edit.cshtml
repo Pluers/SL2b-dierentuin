@@ -18,6 +18,21 @@
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>            
+            <div class="form-group">
+                <label asp-for="Climate" class="control-label"></label>
+                <select asp-for="Climate" class="form-control" asp-items="ViewBag.Climate"></select>
+                <span asp-validation-for="Climate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="HabitatType" class="control-label"></label>
+                <select asp-for="HabitatType" class="form-control" asp-items="ViewBag.HabitatType"></select>
+                <span asp-validation-for="HabitatType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SecurityLevel" class="control-label"></label>
+                <select asp-for="SecurityLevel" class="form-control" asp-items="ViewBag.SecurityLevel"></select>
+                <span asp-validation-for="SecurityLevel" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="EnclosureSize" class="control-label"></label>

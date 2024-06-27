@@ -54,7 +54,7 @@ namespace dierentuin.Controllers
             ViewBag.DietaryClass = new SelectList(Enum.GetValues(typeof(AnimalDietaryClass)));
             ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
             ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
-            ViewBag.Prey = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList());
+            ViewBag.PreyId = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList(), "Id", "Name");
             ViewBag.CategoryId = new SelectList(_context.Category.ToList(), "Id", "Name");
 
             return View();
@@ -65,7 +65,7 @@ namespace dierentuin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Species,Size,DietaryClass,ActivityPattern,CategoryId,EnclosureId,Prey,SpaceRequirement,SecurityRequirement")] Animal animal)
+        public async Task<IActionResult> Create([Bind("Id,Name,Species,Size,DietaryClass,ActivityPattern,CategoryId,EnclosureId,PreyId,SpaceRequirement,SecurityRequirement")] Animal animal)
         {
             if (ModelState.IsValid)
             {
@@ -107,7 +107,7 @@ namespace dierentuin.Controllers
             ViewBag.DietaryClass = new SelectList(Enum.GetValues(typeof(AnimalDietaryClass)));
             ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
             ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
-            ViewBag.Prey = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList());
+            ViewBag.PreyId = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList(), "Id", "Name");
             ViewBag.CategoryId = new SelectList(_context.Category.ToList(), "Id", "Name");
             ViewBag.EnclosureId = new SelectList(_context.Enclosure.ToList(), "Id", "Name");
             return View(animal);
@@ -118,7 +118,7 @@ namespace dierentuin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,Size,DietaryClass,ActivityPattern,CategoryId,EnclosureId,Prey,SpaceRequirement,SecurityRequirement")] Animal animal)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Species,Size,DietaryClass,ActivityPattern,CategoryId,EnclosureId,PreyId,SpaceRequirement,SecurityRequirement")] Animal animal)
         {
             if (id != animal.Id)
             {

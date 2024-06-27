@@ -44,14 +44,25 @@ namespace dierentuin.Data
                     .RuleFor(a => a.ActivityPattern, f => f.PickRandom<AnimalActivityPattern>())
                     .RuleFor(a => a.Category, f => f.PickRandom(categories))
                     .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures))
-                    .RuleFor(a => a.Prey, f => f.Lorem.Word())
                     .RuleFor(a => a.SpaceRequirement, f => f.Random.Number(1, 20))
                     .RuleFor(a => a.SecurityRequirement, f => f.PickRandom<SecurityClassification>())
                     .RuleFor(a => a.Enclosure, f => f.PickRandom(enclosures));
-
                 var animals = animalFaker.Generate(10);
-                _context.Animal.AddRange(animals);
+                var random = new Random(); 
 
+                _context.Animal.AddRange(animals);
+                _context.SaveChanges();
+                foreach (var animal in animals)
+                {
+                    var potentialPrey = animals.Where(a => a.Id != animal.Id).ToList();
+                    if (potentialPrey.Any())
+                    {
+                        int randomIndex = random.Next(potentialPrey.Count);
+                        animal.PreyId = potentialPrey[randomIndex].Id;
+                    }
+                }
+
+                _context.Animal.UpdateRange(animals);  
                 _context.SaveChanges();
             }
         }

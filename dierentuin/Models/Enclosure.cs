@@ -9,7 +9,6 @@ namespace dierentuin.Models
         public string Name { get; set; }
         public Collection<Animal>? Animals { get; set; }
         public EnclosureClimateType Climate;
-
         public EnclosureHabitatEnvironment HabitatType;
         public SecurityClassification SecurityLevel;
 

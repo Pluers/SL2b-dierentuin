@@ -84,6 +84,9 @@ namespace dierentuin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Climate = new SelectList(Enum.GetValues(typeof(EnclosureClimateType)));
+            ViewBag.HabitatType = new SelectList(Enum.GetValues(typeof(EnclosureHabitatEnvironment)));
+            ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
             return View(enclosure);
         }
 

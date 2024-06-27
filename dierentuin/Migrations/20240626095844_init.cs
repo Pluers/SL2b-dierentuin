@@ -48,9 +48,9 @@ namespace dierentuin.Migrations
                     Size = table.Column<int>(type: "INTEGER", nullable: false),
                     DietaryClass = table.Column<int>(type: "INTEGER", nullable: false),
                     ActivityPattern = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EnclosureId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Prey = table.Column<string>(type: "TEXT", nullable: true),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    EnclosureId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PreyId = table.Column<string>(type: "TEXT", nullable: true),
                     SpaceRequirement = table.Column<double>(type: "REAL", nullable: false),
                     SecurityRequirement = table.Column<int>(type: "INTEGER", nullable: false)
                 },
