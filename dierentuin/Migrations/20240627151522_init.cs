@@ -14,13 +14,13 @@ namespace dierentuin.Migrations
                 name: "Category",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "INTEGER", nullable: false)
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    name = table.Column<string>(type: "TEXT", nullable: false)
+                    Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Category", x => x.id);
+                    table.PrimaryKey("PK_Category", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -30,6 +30,9 @@ namespace dierentuin.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Climate = table.Column<int>(type: "INTEGER", nullable: false),
+                    HabitatType = table.Column<int>(type: "INTEGER", nullable: false),
+                    SecurityLevel = table.Column<int>(type: "INTEGER", nullable: false),
                     EnclosureSize = table.Column<double>(type: "REAL", nullable: false)
                 },
                 constraints: table =>
@@ -48,27 +51,30 @@ namespace dierentuin.Migrations
                     Size = table.Column<int>(type: "INTEGER", nullable: false),
                     DietaryClass = table.Column<int>(type: "INTEGER", nullable: false),
                     ActivityPattern = table.Column<int>(type: "INTEGER", nullable: false),
-                    CategoryId = table.Column<int>(type: "INTEGER", nullable: false),
-                    EnclosureId = table.Column<int>(type: "INTEGER", nullable: false),
-                    Prey = table.Column<string>(type: "TEXT", nullable: true),
+                    CategoryId = table.Column<int>(type: "INTEGER", nullable: true),
+                    EnclosureId = table.Column<int>(type: "INTEGER", nullable: true),
+                    PreyId = table.Column<int>(type: "INTEGER", nullable: true),
                     SpaceRequirement = table.Column<double>(type: "REAL", nullable: false),
-                    SecurityRequirement = table.Column<int>(type: "INTEGER", nullable: false)
+                    SecurityRequirement = table.Column<int>(type: "INTEGER", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Animal", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Animal_Animal_PreyId",
+                        column: x => x.PreyId,
+                        principalTable: "Animal",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Animal_Category_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Category",
-                        principalColumn: "id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Animal_Enclosure_EnclosureId",
                         column: x => x.EnclosureId,
                         principalTable: "Enclosure",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -80,6 +86,11 @@ namespace dierentuin.Migrations
                 name: "IX_Animal_EnclosureId",
                 table: "Animal",
                 column: "EnclosureId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Animal_PreyId",
+                table: "Animal",
+                column: "PreyId");
         }
 
         /// <inheritdoc />

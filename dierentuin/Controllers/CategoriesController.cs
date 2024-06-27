@@ -139,15 +139,40 @@ namespace dierentuin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var category = await _context.Category.FindAsync(id);
-            if (category != null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                _context.Category.Remove(category);
+                try
+                {
+                    var category = await _context.Category.Include(c => c.Animals).FirstOrDefaultAsync(c => c.Id == id);
+                    if (category != null)
+                    {
+                        foreach (var relatedEntity in category.Animals)
+                        {
+                            relatedEntity.CategoryId = null;
+                        }
+                
+                        // Remove the category
+                        _context.Category.Remove(category);
+                        
+                        // Save all changes in a single call
+                        await _context.SaveChangesAsync();
+                        
+                        // Commit transaction
+                        await transaction.CommitAsync();
+                    }
+                
+                    return RedirectToAction(nameof(Index));
+                }
+                catch (Exception ex)
+                {
+                    // Log the exception, handle it, or rollback transaction
+                    await transaction.RollbackAsync();
+                    return RedirectToAction(nameof(Index));
+                    // Consider returning an error view or a user-friendly error message
+                }
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
         }
+        
 
         private bool CategoryExists(int id)
         {

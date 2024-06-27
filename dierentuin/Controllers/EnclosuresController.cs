@@ -59,11 +59,10 @@ namespace dierentuin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,EnclosureSize")] Enclosure enclosure)
+        public async Task<IActionResult> Create([Bind("Id,Name,Climate,HabitatType,SecurityLevel,EnclosureSize")] Enclosure enclosure)
         {
             if (ModelState.IsValid)
             {
-                enclosure.Animals = null;
                 _context.Add(enclosure);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -84,6 +83,9 @@ namespace dierentuin.Controllers
             {
                 return NotFound();
             }
+            ViewBag.Climate = new SelectList(Enum.GetValues(typeof(EnclosureClimateType)));
+            ViewBag.HabitatType = new SelectList(Enum.GetValues(typeof(EnclosureHabitatEnvironment)));
+            ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
             return View(enclosure);
         }
 
@@ -92,7 +94,7 @@ namespace dierentuin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,EnclosureSize")] Enclosure enclosure)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Climate,HabitatType,SecurityLevel,EnclosureSize")] Enclosure enclosure)
         {
             if (id != enclosure.Id)
             {
@@ -145,13 +147,29 @@ namespace dierentuin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Fetch the enclosure to be deleted
             var enclosure = await _context.Enclosure.FindAsync(id);
             if (enclosure != null)
             {
+                // Fetch all animals in the enclosure
+                var animalsInEnclosure = await _context.Animal
+                    .Where(a => a.EnclosureId == id)
+                    .ToListAsync();
+        
+                // Set the EnclosureId of each animal to null
+                foreach (var animal in animalsInEnclosure)
+                {
+                    animal.EnclosureId = null;
+                }
+        
+                // Save the changes to the animals
+                await _context.SaveChangesAsync();
+        
+                // Remove the enclosure
                 _context.Enclosure.Remove(enclosure);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
+        
             return RedirectToAction(nameof(Index));
         }
 

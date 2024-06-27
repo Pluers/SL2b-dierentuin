@@ -16,6 +16,15 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.Climate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HabitatType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SecurityLevel)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.EnclosureSize)
             </th>
             <th>Actions</th>
@@ -27,6 +36,15 @@
             <tr>
                 <td>
                     @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Climate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HabitatType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SecurityLevel)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.EnclosureSize) m<sup>2</sup>
