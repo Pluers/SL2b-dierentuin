@@ -1,20 +1,27 @@
-using dierentuin.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
+using dierentuin.Models;
+using dierentuin.Data;
 
 namespace dierentuin.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly dierentuinContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, dierentuinContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            ViewBag.Animals = await _context.Animal.ToListAsync();
+            ViewBag.Enclosures = await _context.Enclosure.ToListAsync();
+            ViewBag.Categories = await _context.Category.ToListAsync();
             return View();
         }
 
