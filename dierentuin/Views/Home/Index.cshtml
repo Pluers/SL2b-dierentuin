@@ -3,6 +3,65 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Welcome to the Zoo Application</h1>
+        
+    <!-- Display lists of Animals, Enclosures, and Categories -->
+    <div class="row mt-5">
+        <!-- Animals -->
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Animals</h5>
+                    <div style="max-height: 200px; overflow-y: auto;">
+                        <ul class="list-unstyled">
+                            @foreach (var animal in ViewBag.Animals)
+                            {
+                                <!-- Use Bootstrap classes for smaller and prettier list items -->
+                                <li class="text-secondary small mb-2">@animal.Name</li>
+                            }
+                        </ul>
+                    </div>
+                    <a href="/Animals" class="btn btn-primary">Go to Animals</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Enclosures -->
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Enclosures</h5>
+                    <div style="max-height: 200px; overflow-y: auto;">
+                        <ul class="list-unstyled">
+                            @foreach (var enclosure in ViewBag.Enclosures)
+                            {
+                                <!-- Use Bootstrap classes for smaller and prettier list items -->
+                                <li class="text-secondary small mb-2">@enclosure.Name</li>
+                            }
+                        </ul>
+                    </div>
+                    <a href="/Enclosures" class="btn btn-secondary">Go to Enclosures</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Categories -->
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Categories</h5>
+                    <div style="max-height: 200px; overflow-y: auto;">
+                        <ul class="list-unstyled">
+                            @foreach (var category in ViewBag.Categories)
+                            {
+                                <!-- Use Bootstrap classes for smaller and prettier list items -->
+                                <li class="text-secondary small mb-2">@category.Name</li>
+                            }
+                        </ul>
+                    </div>
+                    <a href="/Categories" class="btn btn-info">Go to Categories</a>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
