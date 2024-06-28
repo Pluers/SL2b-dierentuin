@@ -12,8 +12,8 @@ namespace dierentuin.Data
         public dierentuinContext(DbContextOptions<dierentuinContext> options) : base(options) { }
 
         // List of models
-        public DbSet<Animal> Animal { get; set; } = default!;
-        public DbSet<Category> Category { get; set; } = default!;
-        public DbSet<Enclosure> Enclosure { get; set; } = default!;
+        public virtual DbSet<Animal> Animal { get; set; } = default!;
+        public virtual DbSet<Category> Category { get; set; } = default!;
+        public virtual DbSet<Enclosure> Enclosure { get; set; } = default!;
     }
 }
