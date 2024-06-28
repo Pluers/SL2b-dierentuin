@@ -167,8 +167,8 @@ namespace dierentuin.Controllers
                 }
                 catch (Exception ex)
                 {
-                    // Log the exception, handle it, or rollback transaction
                     await transaction.RollbackAsync();
+                    Console.WriteLine(ex.Message);
                     return RedirectToAction(nameof(Index));
                     // Consider returning an error view or a user-friendly error message
                 }

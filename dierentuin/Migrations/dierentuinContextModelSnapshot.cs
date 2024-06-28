@@ -115,7 +115,7 @@ namespace dierentuin.Migrations
                         .HasForeignKey("CategoryId");
 
                     b.HasOne("dierentuin.Models.Enclosure", "Enclosure")
-                        .WithMany()
+                        .WithMany("Animals")
                         .HasForeignKey("EnclosureId");
 
                     b.HasOne("dierentuin.Models.Animal", "Prey")
@@ -130,6 +130,11 @@ namespace dierentuin.Migrations
                 });
 
             modelBuilder.Entity("dierentuin.Models.Category", b =>
+                {
+                    b.Navigation("Animals");
+                });
+
+            modelBuilder.Entity("dierentuin.Models.Enclosure", b =>
                 {
                     b.Navigation("Animals");
                 });
