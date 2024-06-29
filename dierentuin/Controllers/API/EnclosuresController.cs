@@ -16,6 +16,7 @@ namespace dierentuin.Controllers.API
     {
         private readonly dierentuinContext _context;
 
+        // Reference to the dbcontext
         public EnclosuresController(dierentuinContext context)
         {
             _context = context;
@@ -25,6 +26,7 @@ namespace dierentuin.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Enclosure>>> GetEnclosure()
         {
+            // Get all enclosures by animal dto
             var enclosures = await _context.Enclosure
                 .Select(e => new
                 {
@@ -45,6 +47,7 @@ namespace dierentuin.Controllers.API
         [HttpGet("{id}")]
         public async Task<ActionResult<Enclosure>> GetEnclosure(int id)
         {
+            // Get a single enclosure by animal dto
             var enclosure = await _context.Enclosure
                 .Where(m => m.Id == id)
                 .Select(e => new
@@ -76,6 +79,7 @@ namespace dierentuin.Controllers.API
                 return BadRequest();
             }
 
+            // Update the enclosure
             _context.Entry(enclosure).State = EntityState.Modified;
 
             try
@@ -102,6 +106,7 @@ namespace dierentuin.Controllers.API
         [HttpPost]
         public async Task<ActionResult<Enclosure>> PostEnclosure(Enclosure enclosure)
         {
+            // Create enclosure
             _context.Enclosure.Add(enclosure);
             await _context.SaveChangesAsync();
 
@@ -147,6 +152,7 @@ namespace dierentuin.Controllers.API
             }
         }
 
+        // Check if enclosure exists
         private bool EnclosureExists(int id)
         {
             return _context.Enclosure.Any(e => e.Id == id);

@@ -109,42 +109,43 @@ namespace dierentuin.Controllers.API
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
-{
-    using (var transaction = await _context.Database.BeginTransactionAsync())
-    {
-        try
         {
-            var category = await _context.Category.Include(a => a.Animals).FirstOrDefaultAsync(c => c.Id == id);
-            if (category == null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                return NotFound();
+                try
+                {
+                    var category = await _context.Category.Include(a => a.Animals).FirstOrDefaultAsync(c => c.Id == id);
+                    if (category == null)
+                    {
+                        return NotFound();
+                    }
+
+                    // Unlink animals from the category
+                    foreach (var animal in category.Animals)
+                    {
+                        animal.CategoryId = null;
+                    }
+
+                    // Remove the category
+                    _context.Category.Remove(category);
+
+                    await _context.SaveChangesAsync();
+
+                    await transaction.CommitAsync();
+
+                    return NoContent();
+                }
+                catch (Exception ex)
+                {
+                    // Rollback transaction if any error occurs
+                    await transaction.RollbackAsync();
+                    Console.WriteLine(ex.Message);
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
+                }
             }
-
-            // Unlink animals from the category
-            foreach (var animal in category.Animals)
-            {
-                animal.CategoryId = null;
-            }
-
-            // Remove the category
-            _context.Category.Remove(category);
-
-            await _context.SaveChangesAsync();
-
-            await transaction.CommitAsync();
-
-            return NoContent();
         }
-        catch (Exception ex)
-        {
-            // Rollback transaction if any error occurs
-            await transaction.RollbackAsync();
-            Console.WriteLine(ex.Message);
-            return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
-        }
-    }
-}
 
+        // Check if the category exists
         private bool CategoryExists(int id)
         {
             return _context.Category.Any(e => e.Id == id);
