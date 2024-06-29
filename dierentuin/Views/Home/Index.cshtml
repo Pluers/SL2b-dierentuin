@@ -4,10 +4,9 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome to the Zoo Application</h1>
-        
-    <!-- Display lists of Animals, Enclosures, and Categories -->
+
     <div class="row mt-5">
-        <!-- Animals -->
+        @* Animals *@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
@@ -16,7 +15,6 @@
                         <ul class="list-unstyled">
                             @foreach (var animal in ViewBag.Animals)
                             {
-                                <!-- Use Bootstrap classes for smaller and prettier list items -->
                                 <li class="text-secondary small mb-2">@animal.Name</li>
                             }
                         </ul>
@@ -25,8 +23,8 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Enclosures -->
+
+        @* Enclosures *@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
@@ -35,7 +33,6 @@
                         <ul class="list-unstyled">
                             @foreach (var enclosure in ViewBag.Enclosures)
                             {
-                                <!-- Use Bootstrap classes for smaller and prettier list items -->
                                 <li class="text-secondary small mb-2">@enclosure.Name</li>
                             }
                         </ul>
@@ -44,8 +41,8 @@
                 </div>
             </div>
         </div>
-        
-        <!-- Categories -->
+
+        @* Categories *@
         <div class="col-sm-4">
             <div class="card">
                 <div class="card-body">
@@ -54,7 +51,6 @@
                         <ul class="list-unstyled">
                             @foreach (var category in ViewBag.Categories)
                             {
-                                <!-- Use Bootstrap classes for smaller and prettier list items -->
                                 <li class="text-secondary small mb-2">@category.Name</li>
                             }
                         </ul>

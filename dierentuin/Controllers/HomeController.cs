@@ -8,17 +8,17 @@ namespace dierentuin.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly dierentuinContext _context;
 
-        public HomeController(ILogger<HomeController> logger, dierentuinContext context)
+        // Reference to the dbcontext
+        public HomeController(dierentuinContext context)
         {
-            _logger = logger;
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
+            // Get all animals, enclosures and categories to display them in the home page
             ViewBag.Animals = await _context.Animal.ToListAsync();
             ViewBag.Enclosures = await _context.Enclosure.ToListAsync();
             ViewBag.Categories = await _context.Category.ToListAsync();

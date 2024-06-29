@@ -24,11 +24,13 @@
                 <span asp-validation-for="Species" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @* otherwise it will display CategoryId *@
                 <label for="CategoryId" class="control-label">Category</label>
                 <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
                 <span asp-validation-for="CategoryId" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @* otherwise it will display EnclosureId *@
                 <label for="EnclosureId" class="control-label">Enclosure</label>
                 <select asp-for="EnclosureId" class="form-control" asp-items="ViewBag.EnclosureId"></select>
                 <span asp-validation-for="EnclosureId" class="text-danger"></span>
@@ -49,6 +51,7 @@
                 <span asp-validation-for="ActivityPattern" class="text-danger"></span>
             </div>
             <div class="form-group">
+                @* otherwise it will display PreyId *@
                 <label for="PreyId" class="control-label">Prey</label>
                 <select asp-for="PreyId" class="form-control" asp-items="ViewBag.PreyId"></select>
                 <span asp-validation-for="PreyId" class="text-danger"></span>

@@ -5,7 +5,9 @@ namespace dierentuin.Models
     public class Animal
     {
         public int Id { get; set; }
+        // The name cannot be null or empty.
         public string Name { get; set; }
+        // The species cannot be null or empty.
         public string Species { get; set; }
         public Category? Category { get; set; }
         public AnimalSize Size { get; set; }
@@ -21,20 +23,5 @@ namespace dierentuin.Models
         /// </summary>
         public double SpaceRequirement { get; set; }
         public SecurityClassification? SecurityRequirement { get; set; }
-    }
-
-    public enum AnimalDietaryClass
-    {
-        Carnivore,
-        Herbivore,
-        Omnivore,
-        Insectivore,
-        Piscivore
-    }
-    public enum AnimalActivityPattern
-    {
-        Diurnal,
-        Nocturnal,
-        Cathemeral
     }
 }

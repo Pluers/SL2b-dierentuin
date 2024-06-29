@@ -8,4 +8,14 @@ namespace dierentuin.Enums
         Subarctic,
         Arctic
     }
+
+    [Flags]
+    public enum EnclosureHabitatEnvironment
+    {
+        Forest,
+        Savannah,
+        Desert,
+        Tundra,
+        Aquatic
+    }
 }

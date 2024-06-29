@@ -14,6 +14,7 @@ namespace dierentuin.Controllers
     {
         private readonly dierentuinContext _context;
 
+        // Reference to the dbcontext
         public CategoriesController(dierentuinContext context)
         {
             _context = context;
@@ -22,6 +23,7 @@ namespace dierentuin.Controllers
         // GET: Categories
         public async Task<IActionResult> Index()
         {
+            // Get all categories
             return View(await _context.Category.ToListAsync());
         }
 
@@ -33,6 +35,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single category with animals to display other properties other than the saved id from the database
             var category = await _context.Category
                 .Include(a => a.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -47,6 +50,7 @@ namespace dierentuin.Controllers
         // GET: Categories/Create
         public IActionResult Create()
         {
+            // No viewbags needed 
             return View();
         }
 
@@ -59,6 +63,7 @@ namespace dierentuin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Create the category
                 _context.Add(category);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -74,6 +79,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single category
             var category = await _context.Category.FindAsync(id);
             if (category == null)
             {
@@ -98,6 +104,7 @@ namespace dierentuin.Controllers
             {
                 try
                 {
+                    // Update the category
                     _context.Update(category);
                     await _context.SaveChangesAsync();
                 }
@@ -125,6 +132,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single category with animals to display other properties other than the saved id from the database
             var category = await _context.Category
                 .Include(c => c.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -145,6 +153,7 @@ namespace dierentuin.Controllers
             {
                 try
                 {
+                    // Get a single category with animals to unlink them
                     var category = await _context.Category.Include(c => c.Animals).FirstOrDefaultAsync(c => c.Id == id);
                     if (category != null)
                     {
@@ -167,15 +176,15 @@ namespace dierentuin.Controllers
                 }
                 catch (Exception ex)
                 {
+                    // Rollback transaction if any error occurs
                     await transaction.RollbackAsync();
                     Console.WriteLine(ex.Message);
                     return RedirectToAction(nameof(Index));
-                    // Consider returning an error view or a user-friendly error message
                 }
             }
         }
         
-
+        // Check if the category exists
         private bool CategoryExists(int id)
         {
             return _context.Category.Any(e => e.Id == id);

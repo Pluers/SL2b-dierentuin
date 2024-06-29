@@ -15,6 +15,7 @@ namespace dierentuin.Controllers
     {
         private readonly dierentuinContext _context;
 
+        // Reference to the dbcontext
         public AnimalsController(dierentuinContext context)
         {
             _context = context;
@@ -23,6 +24,7 @@ namespace dierentuin.Controllers
         // GET: Animals
         public async Task<IActionResult> Index()
         {
+            // Get all animals with category and enclosure to display other properties other than the saved id from the database
             var dierentuinContext = _context.Animal.Include(a => a.Category).Include(a => a.Enclosure);
             return View(await dierentuinContext.ToListAsync());
         }
@@ -35,6 +37,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single animal with category and enclosure to display other properties other than the saved id from the database
             var animal = await _context.Animal
                 .Include(a => a.Category)
                 .Include(a => a.Enclosure)
@@ -50,6 +53,7 @@ namespace dierentuin.Controllers
         // GET: Animals/Create
         public IActionResult Create()
         {
+            // Get all the values from the enums to display in the dropdowns and save them in a viewbag
             ViewBag.SizeTypes = new SelectList(Enum.GetValues(typeof(AnimalSize)));
             ViewBag.DietaryClass = new SelectList(Enum.GetValues(typeof(AnimalDietaryClass)));
             ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
@@ -69,18 +73,20 @@ namespace dierentuin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // When creating an animal, assign it a random enclosure
                 var enclosureIds = _context.Enclosure.Select(e => e.Id).ToList();
 
                 if (enclosureIds.Any())
                 {
                     var random = new Random();
-                    // Select a random EnclosureId from the list of existing IDs
+                    // Select a random EnclosureId from the list of existing ids
                     var randomEnclosureId = enclosureIds[random.Next(enclosureIds.Count)];
 
-                    // Assign the random EnclosureId to the animal
+                    // Assign random EnclosureId to the animal
                     animal.EnclosureId = randomEnclosureId;
                 }
 
+                // finally create the animal
                 _context.Add(animal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -97,16 +103,18 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single animal
             var animal = await _context.Animal.FindAsync(id);
             if (animal == null)
             {
                 return NotFound();
             }
-
+            // Get all the values from the enums to display in the dropdowns and save them in a viewbag
             ViewBag.SizeTypes = new SelectList(Enum.GetValues(typeof(AnimalSize)));
             ViewBag.DietaryClass = new SelectList(Enum.GetValues(typeof(AnimalDietaryClass)));
             ViewBag.ActivityPattern = new SelectList(Enum.GetValues(typeof(AnimalActivityPattern)));
             ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
+            // Display the name of the animal in the dropdown instead of the id
             ViewBag.PreyId = new SelectList(_context.Animal.Select(a => a.Prey).Distinct().ToList(), "Id", "Name");
             ViewBag.CategoryId = new SelectList(_context.Category.ToList(), "Id", "Name");
             ViewBag.EnclosureId = new SelectList(_context.Enclosure.ToList(), "Id", "Name");
@@ -129,6 +137,7 @@ namespace dierentuin.Controllers
             {
                 try
                 {
+                    // Update the animal
                     _context.Update(animal);
                     await _context.SaveChangesAsync();
                 }
@@ -145,8 +154,6 @@ namespace dierentuin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CategoryId"] = new SelectList(_context.Set<Category>(), "Id", "Id", animal.CategoryId);
-            ViewData["EnclosureId"] = new SelectList(_context.Set<Enclosure>(), "Id", "Id", animal.EnclosureId);
             return View(animal);
         }
 
@@ -158,6 +165,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single animal with category and enclosure to display other properties other than the saved id from the database
             var animal = await _context.Animal
                 .Include(a => a.Category)
                 .Include(a => a.Enclosure)
@@ -175,9 +183,11 @@ namespace dierentuin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            // Get a single animal
             var animal = await _context.Animal.FindAsync(id);
             if (animal != null)
             {
+                // Remove the animal
                 _context.Animal.Remove(animal);
             }
 
@@ -185,6 +195,7 @@ namespace dierentuin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // Check if the animal exists
         private bool AnimalExists(int id)
         {
             return _context.Animal.Any(e => e.Id == id);

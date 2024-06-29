@@ -14,10 +14,12 @@ namespace dierentuinTests
     {
         public static DbContextOptions<dierentuinContext> GetDbContextOptions(string databaseName)
         {
+            // the reference to the dbcontext
             var options = new DbContextOptionsBuilder<dierentuinContext>()
                 .UseInMemoryDatabase(databaseName)
                 .Options;
 
+            // Add an animal if it doesn't exist yet in the in-memory database
             using (var context = new dierentuinContext(options))
             {
                 if (!context.Animal.Any())
@@ -34,14 +36,15 @@ namespace dierentuinTests
         [Fact]
         public async Task Index_ReturnsAViewResult_WithAListOfAnimals()
         {
-            var options = AnimalTests.GetDbContextOptions("TestDB_IndexTest");
-        
+            // Get all animals in the in-memory database
+            var options = GetDbContextOptions("TestDB_IndexTest");
+
             using (var context = new dierentuinContext(options))
             {
                 var controller = new AnimalsController(context);
-            
+
                 var result = await controller.Index();
-            
+
                 var viewResult = Assert.IsType<ViewResult>(result);
                 var model = Assert.IsAssignableFrom<IEnumerable<Animal>>(viewResult.Model);
             }
@@ -51,7 +54,8 @@ namespace dierentuinTests
         [Fact]
         public async Task AddAnimal_CreatesNewAnimal_ReturnsRedirectToActionResult()
         {
-            var options = AnimalTests.GetDbContextOptions("TestDB_AddAnimal");
+            // Create a new animal in the in-memory database
+            var options = GetDbContextOptions("TestDB_AddAnimal");
             var newAnimal = new Animal { Name = "New Lion", Species = "Panthera leo new" };
 
             using (var context = new dierentuinContext(options))
@@ -61,10 +65,10 @@ namespace dierentuinTests
                 var result = await controller.Create(newAnimal);
 
                 var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
-            }
 
-            using (var context = new dierentuinContext(options))
-            {
+
+
+                // Add the new animal to the in-memory database
                 Assert.True(context.Animal.Any(a => a.Name == "New Lion" && a.Species == "Panthera leo new"));
             }
         }
@@ -73,22 +77,23 @@ namespace dierentuinTests
         [Fact]
         public async Task PostAnimal_UpdatesAnimal_ReturnsRedirectToActionResult()
         {
-            var options = AnimalTests.GetDbContextOptions("TestDB_PutAnimal");
+            // Update an animal in the in-memory database
+            var options = GetDbContextOptions("TestDB_PutAnimal");
             var testAnimalId = 1;
-        
+
             using (var context = new dierentuinContext(options))
             {
                 var updatedAnimal = new Animal { Id = testAnimalId, Name = "Updated Lion", Species = "Panthera leo updated" };
                 var controller = new AnimalsController(context);
-        
+
                 var result = await controller.Edit(testAnimalId, updatedAnimal);
-        
+
                 var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
                 Assert.Equal("Index", redirectToActionResult.ActionName);
-            }
-        
-            using (var context = new dierentuinContext(options))
-            {
+
+
+
+                // Get the updated animal from the in-memory database
                 var animal = await context.Animal.FindAsync(testAnimalId);
                 Assert.NotNull(animal);
                 Assert.Equal("Updated Lion", animal.Name);
@@ -100,22 +105,18 @@ namespace dierentuinTests
         [Fact]
         public async Task DeleteAnimal_RemovesAnimal_ReturnsRedirectToActionResult()
         {
-            var options = AnimalTests.GetDbContextOptions("TestDB_DeleteAnimal");
+            // Delete an animal in the in-memory database
+            var options = GetDbContextOptions("TestDB_DeleteAnimal");
             var testAnimalId = 1;
-        
+
             using (var context = new dierentuinContext(options))
             {
                 var controller = new AnimalsController(context);
-        
-                // Simulate the deletion confirmation
+
                 var result = await controller.DeleteConfirmed(testAnimalId);
-        
+
                 var redirectToActionResult = Assert.IsType<RedirectToActionResult>(result);
                 Assert.Equal(nameof(AnimalsController.Index), redirectToActionResult.ActionName);
-            }
-        
-            using (var context = new dierentuinContext(options))
-            {
                 // Verify the animal has been removed
                 Assert.False(context.Animal.Any(a => a.Id == testAnimalId));
             }

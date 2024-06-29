@@ -114,6 +114,7 @@ namespace dierentuin.Controllers.API
             {
                 try
                 {
+                    // Get a single category with animals to unlink them
                     var category = await _context.Category.Include(a => a.Animals).FirstOrDefaultAsync(c => c.Id == id);
                     if (category == null)
                     {

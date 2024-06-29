@@ -15,6 +15,7 @@ namespace dierentuin.Controllers
     {
         private readonly dierentuinContext _context;
 
+        // Reference to the dbcontext
         public EnclosuresController(dierentuinContext context)
         {
             _context = context;
@@ -23,6 +24,7 @@ namespace dierentuin.Controllers
         // GET: Enclosures
         public async Task<IActionResult> Index()
         {
+            // Get all enclosures
             return View(await _context.Enclosure.ToListAsync());
         }
 
@@ -34,6 +36,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single enclosure with animals to display other properties other than the saved id from the database
             var enclosure = await _context.Enclosure
                 .Include(a => a.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -48,6 +51,7 @@ namespace dierentuin.Controllers
         // GET: Enclosures/Create
         public IActionResult Create()
         {
+            // Get all the values from the enums to display in the dropdowns and save them in a viewbag
             ViewBag.Climate = new SelectList(Enum.GetValues(typeof(EnclosureClimateType)));
             ViewBag.HabitatType = new SelectList(Enum.GetValues(typeof(EnclosureHabitatEnvironment)));
             ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
@@ -64,6 +68,7 @@ namespace dierentuin.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Create the enclosure
                 _context.Add(enclosure);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -79,11 +84,13 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single enclosure to edit
             var enclosure = await _context.Enclosure.FindAsync(id);
             if (enclosure == null)
             {
                 return NotFound();
             }
+            // Get all the values from the enums to display in the dropdowns and save them in a viewbag
             ViewBag.Climate = new SelectList(Enum.GetValues(typeof(EnclosureClimateType)));
             ViewBag.HabitatType = new SelectList(Enum.GetValues(typeof(EnclosureHabitatEnvironment)));
             ViewBag.SecurityLevel = new SelectList(Enum.GetValues(typeof(SecurityClassification)));
@@ -106,6 +113,7 @@ namespace dierentuin.Controllers
             {
                 try
                 {
+                    // Update the enclosure
                     _context.Update(enclosure);
                     await _context.SaveChangesAsync();
                 }
@@ -133,6 +141,7 @@ namespace dierentuin.Controllers
                 return NotFound();
             }
 
+            // Get a single enclosure to delete
             var enclosure = await _context.Enclosure
                 .Include(a => a.Animals)
                 .FirstOrDefaultAsync(m => m.Id == id);
@@ -153,28 +162,29 @@ namespace dierentuin.Controllers
             var enclosure = await _context.Enclosure.FindAsync(id);
             if (enclosure != null)
             {
-                // Fetch all animals in the enclosure
+                // Get all the animals in the enclosure to unlink them
                 var animalsInEnclosure = await _context.Animal
                     .Where(a => a.EnclosureId == id)
                     .ToListAsync();
-        
+
                 // Set the EnclosureId of each animal to null
                 foreach (var animal in animalsInEnclosure)
                 {
                     animal.EnclosureId = null;
                 }
-        
+
                 // Save the changes to the animals
                 await _context.SaveChangesAsync();
-        
+
                 // Remove the enclosure
                 _context.Enclosure.Remove(enclosure);
                 await _context.SaveChangesAsync();
             }
-        
+
             return RedirectToAction(nameof(Index));
         }
 
+        // Check if the enclosure exists
         private bool EnclosureExists(int id)
         {
             return _context.Enclosure.Any(e => e.Id == id);
