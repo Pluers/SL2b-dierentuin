@@ -16,6 +16,7 @@ namespace dierentuin.Controllers.API
     {
         private readonly dierentuinContext _context;
 
+        // Reference to the dbcontext
         public CategoriesController(dierentuinContext context)
         {
             _context = context;
@@ -25,6 +26,7 @@ namespace dierentuin.Controllers.API
         [HttpGet]
         public async Task<ActionResult<IEnumerable<object>>> GetCategory()
         {
+            // Get all categories by animal dto
             var categories = await _context.Category
                 .Select(c => new 
                 {
@@ -41,6 +43,7 @@ namespace dierentuin.Controllers.API
         [HttpGet("{id}")]
         public async Task<ActionResult<object>> GetCategory(int id)
         {
+            // Get a single category by animal dto
             var category = await _context.Category
                 .Where(c => c.Id == id)
                 .Select(c => new 
@@ -69,6 +72,7 @@ namespace dierentuin.Controllers.API
                 return BadRequest();
             }
 
+            // Update the category
             _context.Entry(category).State = EntityState.Modified;
 
             try
@@ -95,6 +99,7 @@ namespace dierentuin.Controllers.API
         [HttpPost]
         public async Task<ActionResult<Category>> PostCategory(Category category)
         {
+            // Create category
             _context.Category.Add(category);
             await _context.SaveChangesAsync();
 
@@ -104,20 +109,41 @@ namespace dierentuin.Controllers.API
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(int id)
+{
+    using (var transaction = await _context.Database.BeginTransactionAsync())
+    {
+        try
         {
-            var category = await _context.Category
-                .Include(a => a.Animals)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var category = await _context.Category.Include(a => a.Animals).FirstOrDefaultAsync(c => c.Id == id);
             if (category == null)
             {
                 return NotFound();
             }
 
+            // Unlink animals from the category
+            foreach (var animal in category.Animals)
+            {
+                animal.CategoryId = null;
+            }
+
+            // Remove the category
             _context.Category.Remove(category);
+
             await _context.SaveChangesAsync();
+
+            await transaction.CommitAsync();
 
             return NoContent();
         }
+        catch (Exception ex)
+        {
+            // Rollback transaction if any error occurs
+            await transaction.RollbackAsync();
+            Console.WriteLine(ex.Message);
+            return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
+        }
+    }
+}
 
         private bool CategoryExists(int id)
         {

@@ -10,12 +10,15 @@ using dierentuin.Models;
 
 namespace dierentuin.Controllers.API
 {
+    // This is the API controller for the Animals model
+    // It is used to control the data that is being sent and retrieved to the client
     [Route("api/[controller]")]
     [ApiController]
     public class AnimalsController : ControllerBase
     {
         private readonly dierentuinContext _context;
 
+        // Reference to the dbcontext
         public AnimalsController(dierentuinContext context)
         {
             _context = context;
@@ -28,6 +31,7 @@ namespace dierentuin.Controllers.API
             // This is to exclude prey and not create any loops because a prey can be an animal so it will create a loop
             var animals = await _context.Animal.ToListAsync();
 
+            // DTO to exclude the prey and to control the data that is being sent
             var animalDTOs = animals.Select(a => new AnimalDTO
             {
                 Id = a.Id,
@@ -50,6 +54,7 @@ namespace dierentuin.Controllers.API
         [HttpGet("{id}")]
         public async Task<ActionResult<Animal>> GetAnimal(int id)
         {
+            // Get a single animal 
             var animal = await _context.Animal.FindAsync(id);
 
             if (animal == null)
@@ -70,6 +75,7 @@ namespace dierentuin.Controllers.API
                 return BadRequest();
             }
 
+            // Update the animal 
             _context.Entry(animal).State = EntityState.Modified;
 
             try
@@ -96,6 +102,7 @@ namespace dierentuin.Controllers.API
         [HttpPost]
         public async Task<ActionResult<Animal>> PostAnimal(Animal animal)
         {
+            // Create Animal 
             _context.Animal.Add(animal);
             await _context.SaveChangesAsync();
 
@@ -112,6 +119,7 @@ namespace dierentuin.Controllers.API
                 return NotFound();
             }
 
+            // Delete animal
             _context.Animal.Remove(animal);
             await _context.SaveChangesAsync();
 
@@ -120,6 +128,7 @@ namespace dierentuin.Controllers.API
 
         private bool AnimalExists(int id)
         {
+            // Check if animal exists
             return _context.Animal.Any(e => e.Id == id);
         }
     }

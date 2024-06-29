@@ -112,18 +112,39 @@ namespace dierentuin.Controllers.API
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEnclosure(int id)
         {
-            var enclosure = await _context.Enclosure
-                .Include(a => a.Animals)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (enclosure == null)
+            using (var transaction = await _context.Database.BeginTransactionAsync())
             {
-                return NotFound();
+                try
+                {
+                    var enclosure = await _context.Enclosure.Include(e => e.Animals).FirstOrDefaultAsync(e => e.Id == id);
+                    if (enclosure == null)
+                    {
+                        return NotFound();
+                    }
+        
+                    // Unlink animals from the enclosure
+                    foreach (var animal in enclosure.Animals)
+                    {
+                        animal.EnclosureId = null;
+                    }
+        
+                    // Remove the enclosure
+                    _context.Enclosure.Remove(enclosure);
+        
+                    await _context.SaveChangesAsync();
+        
+                    await transaction.CommitAsync();
+        
+                    return NoContent(); 
+                }
+                catch (Exception ex)
+                {
+                    // Rollback transaction if any error occurs
+                    await transaction.RollbackAsync();
+                    Console.WriteLine(ex.Message);
+                    return StatusCode(StatusCodes.Status500InternalServerError, "Error deleting data");
+                }
             }
-
-            _context.Enclosure.Remove(enclosure);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
         }
 
         private bool EnclosureExists(int id)
