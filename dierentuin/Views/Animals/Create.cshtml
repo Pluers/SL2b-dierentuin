@@ -59,15 +59,12 @@
                 <select asp-for="SecurityRequirement" class="form-control" asp-items="ViewBag.SecurityLevel"></select>
                 <span asp-validation-for="SecurityRequirement" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
 </div>
 
 @section Scripts {
