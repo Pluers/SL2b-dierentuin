@@ -2,9 +2,9 @@
 
 Het project bestaat uit een overzicht voor een dierentuin waar er dieren toegevoegd kunnen worden aan hokken en dat elk dier een categorie heeft waar je een groep dieren mee kan onderscheiden. Voor de dieren, hokken en categorieën is het mogelijk om ze te weergeven op hun eigen pagina, een nieuwe aan te maken, een te bewerken of te verwijderen.
 
-***
-
 Voor een uitgebreider documentatie bestand: [/documents](https://github.com/Pluers/SL2b-dierentuin/tree/main/documents)
+
+***
 
 ## Reflectie
 

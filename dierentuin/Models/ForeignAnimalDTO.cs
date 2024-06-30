@@ -2,6 +2,8 @@ using dierentuin.Enums;
 
 namespace dierentuin.Models
 {
+    // DTO to get the most basic information of an animal. 
+    // This is mostly used when other models request information about an animal.
     public class ForeignAnimalDTO
     {
         public int Id { get; set; }
