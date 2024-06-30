@@ -406,6 +406,7 @@ FodyWeavers.xsd
 *.db-shm
 *.db-wal
 *.cache
+*.zip
 
 **/bin/
 **/obj/

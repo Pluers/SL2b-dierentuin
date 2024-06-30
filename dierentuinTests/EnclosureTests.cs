@@ -11,6 +11,7 @@ using dierentuin.Models;
 
 namespace dierentuinTests
 {
+    // This tests the CRUD operations of the EnclosuresController
     public class EnclosureTests
     {
         public static DbContextOptions<dierentuinContext> GetDbContextOptions(string databaseName)

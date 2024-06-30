@@ -10,6 +10,7 @@ using dierentuin.Data;
 using dierentuin.Models;
 namespace dierentuinTests
 {
+    // This tests the CRUD operations of the AnimalsController
     public class AnimalTests
     {
         public static DbContextOptions<dierentuinContext> GetDbContextOptions(string databaseName)

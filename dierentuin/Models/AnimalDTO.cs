@@ -2,6 +2,7 @@ using dierentuin.Enums;
 
 namespace dierentuin.Models
 {
+    // Created a DTO model for the animal to control what information is send to and recieved from the API.
     public class AnimalDTO
     {
         public int Id { get; set; }

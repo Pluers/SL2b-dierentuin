@@ -5,6 +5,7 @@ using Bogus;
 
 namespace dierentuin.Data
 {
+    // Seeder class to seed the database with data
     public class dierentuinSeeder
     {
         private readonly dierentuinContext _context;

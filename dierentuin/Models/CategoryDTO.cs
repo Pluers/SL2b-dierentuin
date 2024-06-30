@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 
 namespace dierentuin.Models
 {
+    // Created a DTO model for the animal to control what information is send to and recieved from the API.
     public class CategoryDTO
     {
         public int Id { get; set; }
