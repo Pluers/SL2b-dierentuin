@@ -6,7 +6,7 @@ Het project bestaat uit een overzicht voor een dierentuin waar er dieren toegevo
 
 Voor een uitgebreider documentatie bestand:
 
-[Documentatie]: [/docs](https://github.com/Pluers/SL2b-dierentuin/tree/main/dierentuin/Docs)
+Documentatie: [/docs](https://github.com/Pluers/SL2b-dierentuin/tree/main/dierentuin/Docs)
 
 ## Reflectie
 
