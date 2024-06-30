@@ -86,7 +86,7 @@ namespace dierentuin.Controllers
                     animal.EnclosureId = randomEnclosureId;
                 }
 
-                // finally create the animal
+                // Finally create the animal
                 _context.Add(animal);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

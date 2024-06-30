@@ -15,7 +15,7 @@ namespace dierentuinTests
     {
         public static DbContextOptions<dierentuinContext> GetDbContextOptions(string databaseName)
         {
-            // the reference to the dbcontext
+            // The reference to the dbcontext
             var options = new DbContextOptionsBuilder<dierentuinContext>()
                 .UseInMemoryDatabase(databaseName)
                 .Options;

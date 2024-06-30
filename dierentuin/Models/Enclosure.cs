@@ -13,9 +13,7 @@ namespace dierentuin.Models
         public EnclosureClimateType Climate { get; set; }
         public EnclosureHabitatEnvironment HabitatType { get; set; }
         public SecurityClassification SecurityLevel { get; set; }
-        /// <summary>
-        /// Size is in square meters.
-        /// </summary>
+        // EnclosureSize is in square meters.
         public double EnclosureSize { get; set; }
     }
 }

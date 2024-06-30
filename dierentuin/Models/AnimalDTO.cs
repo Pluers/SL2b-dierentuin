@@ -15,6 +15,7 @@ namespace dierentuin.Models
         public int? CategoryId { get; set; }
         public int? EnclosureId { get; set; }
         public int? PreyId { get; set; }
+        // SpaceRequirement is in square meters.
         public double SpaceRequirement { get; set; }
         public SecurityClassification? SecurityRequirement { get; set; }
     }
